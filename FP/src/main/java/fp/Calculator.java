@@ -1,8 +1,6 @@
 package fp;
-
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.util.List;
+import java.util.*;
 
 public class Calculator {
 
@@ -11,7 +9,7 @@ public class Calculator {
      * este metodo devuelve el Class del object que le pasamos
      */
 	public static Class classTypeOf(Object x) {
-		//return x.getClass();
+		return x.getClass();
 	}
 
 
@@ -19,7 +17,19 @@ public class Calculator {
      * devuelve una lista con los n números de la serie de fibonacci.
      */
 	public static List<Integer> fibonacci(int n) {
-		throw  new NotImplementedException();
+		List<Integer> Lista = new ArrayList<Integer>();
+		Integer primero=1;
+		Integer segundo=1;
+		switch(n){
+			case 1: Lista.add(primero);
+			case 2: Lista.add(primero); Lista.add(segundo);
+			default: 
+				Lista.add(primero); Lista.add(segundo);
+				for(int i=2; i<n;i++){
+					Lista.add(Lista.get(i-2)+Lista.get(i-1));
+				}
+		}
+		return Lista;
 	}
 
 	/*
