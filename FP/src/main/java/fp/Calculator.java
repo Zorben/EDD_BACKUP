@@ -33,11 +33,23 @@ public class Calculator {
 	}
 
 	/*
-	 * Escribir todos los números del number al 0 de step en step.
+	 * Escribir todos los numeros del number al 0 de step en step.
 	 */
 	public static int[] stepThisNumber(int number, int step) {
-		throw  new NotImplementedException();
+		/* uso de ArrayList en vez de array por no saber de antemano la extension */
+		ArrayList<Integer> lista= new ArrayList();
+		int dato=number-step;
+		while(dato>0){
+			lista.add(dato);
+			dato=dato-step;
 		}
+		/* una vez ArrayList lleno ya se crea el array de enteros */
+		int vector[]=new int[lista.size()];
+		for (int i=0;i<lista.size();i++)
+			vector[i]=lista.get(i);
+		
+		return vector;
+	}
 
 	/*
 	 * Módulo al que se le pasa un número entero del 0 al 20 y devuelve los
