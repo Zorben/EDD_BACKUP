@@ -11,7 +11,7 @@ public class Calculator {
      * este metodo devuelve el Class del object que le pasamos
      */
 	public static Class classTypeOf(Object x) {
-		return x.getClass();
+		//return x.getClass();
 	}
 
 
