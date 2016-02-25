@@ -14,7 +14,7 @@ public class Calculator {
 
 
 	/*
-     * devuelve una lista con los n números de la serie de fibonacci.
+     * devuelve una lista con los n numeros de la serie de fibonacci.
      */
 	public static List<Integer> fibonacci(int n) {
 		List<Integer> Lista = new ArrayList<Integer>();
@@ -23,7 +23,7 @@ public class Calculator {
 		switch(n){
 			case 1: Lista.add(primero);
 			case 2: Lista.add(primero); Lista.add(segundo);
-			default: 
+			default:
 				Lista.add(primero); Lista.add(segundo);
 				for(int i=2; i<n;i++){
 					Lista.add(Lista.get(i-2)+Lista.get(i-1));
@@ -36,8 +36,8 @@ public class Calculator {
 	 * Escribir todos los numeros del number al 0 de step en step.
 	 */
 	public static int[] stepThisNumber(int number, int step) {
-		/* uso de ArrayList en vez de array por no saber de antemano la extension */
-		ArrayList<Integer> lista= new ArrayList();
+		/* uso de ArrayList en vez de array por no saber de antemano el tama�o del mismo*/
+		List<Integer> lista= new ArrayList();
 		int dato=number-step;
 		while(dato>0){
 			lista.add(dato);
@@ -47,23 +47,52 @@ public class Calculator {
 		int vector[]=new int[lista.size()];
 		for (int i=0;i<lista.size();i++)
 			vector[i]=lista.get(i);
-		
+
 		return vector;
 	}
 
 	/*
-	 * Módulo al que se le pasa un número entero del 0 al 20 y devuelve los
+	 * Modulo al que se le pasa un numero entero del 0 al 20 y devuelve los
 	 * divisores que tiene.
 	 */
 	public static int[] divisors(int n) {
-		throw  new NotImplementedException();
+		List<Integer> lista= new ArrayList();
+		int divisor=n;
+
+		if(n>0){
+			while(divisor>0){
+				if(n%divisor==0){
+					lista.add(divisor);
+					divisor--;
+				}
+				else
+					divisor--;
+			}
+		}
+		else if(n<=0)
+				return null;
+
+		int divisores[]=new int[lista.size()];
+		for (int i=0;i<lista.size();i++)
+			divisores[i]=lista.get(i);
+
+		return divisores;
+
 	}
 
 	/*
 	 * Toma como parámetros una cadena de caracteres y devuelve cierto si la cadena resulta ser un palíndromo
 	 */
 	public static boolean checkIsPalindrome(String cadena) {
-		throw  new NotImplementedException();
+		/*String vuelta="";
+		for (int i=cadena.length()-1;i>=0;i--)
+			vuelta=vuelta + cadena.charAt(i);
+		return cadena.equals(vuelta);*/
+		String reverse = "";
+		for (int j = cadena.length() - 1; j >= 0; j--) {
+				reverse += cadena.charAt(j);
+		}
+		return cadena.equals(reverse);
 	}
 
 	/*
