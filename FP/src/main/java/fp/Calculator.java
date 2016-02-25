@@ -84,10 +84,6 @@ public class Calculator {
 	 * Toma como parámetros una cadena de caracteres y devuelve cierto si la cadena resulta ser un palíndromo
 	 */
 	public static boolean checkIsPalindrome(String cadena) {
-		/*String vuelta="";
-		for (int i=cadena.length()-1;i>=0;i--)
-			vuelta=vuelta + cadena.charAt(i);
-		return cadena.equals(vuelta);*/
 		String reverse = "";
 		for (int j = cadena.length() - 1; j >= 0; j--) {
 				reverse += cadena.charAt(j);
@@ -100,7 +96,33 @@ public class Calculator {
 	 * mostrar: cincuenta y seis
 	 */
 	public static String speakToMe(int n) {
-		throw  new NotImplementedException();
+		String[] decenas = {"","Diez","Veinte","Treinta","Cuarenta","Cincuenta",
+				  "Sesenta","Setenta","Ochenta","Noventa"};
+
+		  String[] unidades = {"Cero","uno","dos","tres","cuatro","cinco","seis","siete",
+				  "ocho","nueve","Diez","Once","Doce","Trece","Catorce","Quince","Dieciseis",
+				  "Diecisiete","Dieciocho","Diecinueve"};
+	  
+		  String numero="";
+		  
+		  if(n==0){
+			  numero=unidades[0];
+			  return numero;
+		  }
+		  else if(n>0 && n<20){
+			  numero=unidades[n];
+			  if (n>0 && n<10) // primera letra mayuscula si n es 1-9
+				  numero=numero.substring(0, 1).toUpperCase() + numero.substring(1);
+			  return numero;
+		  }
+		  else if((n%10)==0){
+			  numero=decenas[n/10];
+			  return numero;
+		  }
+		  else{
+			  numero=decenas[n/10]+ " y " +unidades[n%10];
+			  return numero;
+		  }
 	}
 
 	/*
