@@ -84,11 +84,18 @@ public class Calculator {
 	 * Toma como parámetros una cadena de caracteres y devuelve cierto si la cadena resulta ser un palíndromo
 	 */
 	public static boolean checkIsPalindrome(String cadena) {
-		String reverse = "";
-		for (int j = cadena.length() - 1; j >= 0; j--) {
-				reverse += cadena.charAt(j);
+		if (cadena==null)
+			return false;
+		else{
+			String original = cadena.replaceAll("[^\\p{L}\\p{Nd}]+", ""); // borra todo aquel caracter que no es a-z
+			original.toLowerCase(); // minusculas
+			original=original.trim(); // sin espacios
+			String reverse = "";
+			for (int j = original.length() - 1; j >= 0; j--) {
+					reverse += cadena.charAt(j);
+			}
+			return original.equals(reverse);
 		}
-		return cadena.equals(reverse);
 	}
 
 	/*
@@ -130,13 +137,65 @@ public class Calculator {
 	 * dd-MM-yyyy
 	 */
 	public static boolean isLeapYear(String fecha) {
-		throw  new NotImplementedException();
+		if (!isValidDate(fecha))
+			return false;
+		/* la fecha es valida */
+		else{
+			int anyo=Integer.parseInt(fecha.substring(6));
+			GregorianCalendar f = new GregorianCalendar();
+			return f.isLeapYear(anyo);
+		}
 	}
 
 	/*
 	 * este metodo devuelve cierto si la fecha es válida
 	 */
 	public static boolean isValidDate(String date) {
-		throw  new NotImplementedException();
+		int day, month, year;	
+		
+		try{
+			day=Integer.parseInt(date.substring(0, 2));
+			month=Integer.parseInt(date.substring(3,5));
+			year=Integer.parseInt(date.substring(6));
+			
+		}catch(IndexOutOfBoundsException i){
+			return false;
+		}catch (NumberFormatException e) {
+			return false;
+		}
+		if (date==null) 
+			return false;
+		
+		/* si se ha extraido dia, mes y anio con exito */
+		
+		else if(year>0){
+			switch(month){
+				/* meses de 31 */
+				case 1:
+				case 3:
+				case 5:
+				case 7:
+				case 8:
+				case 10:
+				case 12:				
+					if(day>0 && day<=31)
+						return true;
+						break;
+				/* meses de 30 */
+				case 4:
+				case 6:
+				case 9:
+				case 11:
+					if(day>0 && day<=30)
+						return true;
+						break;
+				/* febrero */
+				case 2:
+					if(day<=28 && day>0)
+						return true;
+						break;
+			}
+		}
+		return false;
 	}
 }
