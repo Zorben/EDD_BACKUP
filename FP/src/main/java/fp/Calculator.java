@@ -56,22 +56,21 @@ public class Calculator {
 	 * divisores que tiene.
 	 */
 	public static int[] divisors(int n) {
-		List<Integer> lista= new ArrayList();
+		List<Integer> lista= new ArrayList(); // lista en vez de array por desconocer su tamaño
 		int divisor=n;
 
-		if(n>0){
-			while(divisor>0){
-				if(n%divisor==0){
-					lista.add(divisor);
-					divisor--;
-				}
-				else
-					divisor--;
+		if(n<=0)
+			return null;
+		/* n es valido */
+		while(divisor>0){
+			if(n%divisor==0){
+				lista.add(divisor);
+				divisor--;
+			}else{
+				divisor--;
 			}
 		}
-		else if(n<=0)
-				return null;
-
+		/* paso de lista a array */
 		int divisores[]=new int[lista.size()];
 		for (int i=0;i<lista.size();i++)
 			divisores[i]=lista.get(i);
@@ -81,55 +80,67 @@ public class Calculator {
 	}
 
 	/*
-	 * Toma como parÃ¡metros una cadena de caracteres y devuelve cierto si la cadena resulta ser un palÃ­ndromo
+	 * Toma como parametros una cadena de caracteres y devuelve cierto si la cadena resulta ser un palÃ­ndromo
 	 */
-	public static boolean checkIsPalindrome(String cadena) {
-		if (cadena==null)
+	public static boolean checkIsPalindrome(String frase) {
+		String cadena="";
+		String tildes = "áàäéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ";
+		String ascii = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
+		String fraseInversa="";
+		
+		if(frase==null)
 			return false;
-		else{
-			String original = cadena.replaceAll("[^\\p{L}\\p{Nd}]+", ""); // borra todo aquel caracter que no es a-z
-			original.toLowerCase(); // minusculas
-			original=original.trim(); // sin espacios
-			String reverse = "";
-			for (int j = original.length() - 1; j >= 0; j--) {
-					reverse += cadena.charAt(j);
-			}
-			return original.equals(reverse);
-		}
+		
+		frase=frase.toLowerCase();
+		
+		for(int i=0;i<frase.length();i++)
+			if(Character.isLetter(frase.charAt(i)))
+				if(tildes.indexOf(frase.charAt(i))!=-1)
+					cadena+=ascii.charAt(tildes.indexOf(frase.charAt(i)));
+				else
+					cadena+=frase.charAt(i);
+		for(int i=cadena.length()-1;i>=0;i--)
+			fraseInversa+=cadena.charAt(i);
+		/* coincide con la frase inversa */
+		if(cadena.equals(fraseInversa))
+			return true;
+		/* no coincide con la inversa */
+		else 
+			return false;
 	}
 
 	/*
-	 * Pedir un nÃºmero de 0 a 99 y mostrarlo escrito. Por ejemplo, para 56
+	 * Pedir un numero de 0 a 99 y mostrarlo escrito. Por ejemplo, para 56
 	 * mostrar: cincuenta y seis
 	 */
 	public static String speakToMe(int n) {
 		String[] decenas = {"","Diez","Veinte","Treinta","Cuarenta","Cincuenta",
 				  "Sesenta","Setenta","Ochenta","Noventa"};
-
-		  String[] unidades = {"Cero","uno","dos","tres","cuatro","cinco","seis","siete",
-				  "ocho","nueve","Diez","Once","Doce","Trece","Catorce","Quince","Dieciseis",
+		String[] unidades = {"Cero","uno","dos","tres","cuatro","cinco","seis","siete",
+				  "ocho","nueve","", "Once","Doce","Trece","Catorce","Quince","Dieciseis",
 				  "Diecisiete","Dieciocho","Diecinueve"};
-	  
-		  String numero="";
-		  
-		  if(n==0){
-			  numero=unidades[0];
-			  return numero;
-		  }
-		  else if(n>0 && n<20){
-			  numero=unidades[n];
-			  if (n>0 && n<10) // primera letra mayuscula si n es 1-9
-				  numero=numero.substring(0, 1).toUpperCase() + numero.substring(1);
-			  return numero;
-		  }
-		  else if((n%10)==0){
-			  numero=decenas[n/10];
-			  return numero;
-		  }
-		  else{
-			  numero=decenas[n/10]+ " y " +unidades[n%10];
-			  return numero;
-		  }
+		
+		if(n==0)
+			return unidades[0];
+		
+		else if(n>0 && n<10)
+			return primeraMayus(unidades[n]);
+		
+		else if(n>10 && n<20)
+			return unidades[n];
+		
+		else if((n%10)==0)
+			return decenas[n/10];
+		 
+		else // n>=20 && n<=99
+			return decenas[n/10]+ " y " + unidades[n%10];
+	}
+	
+	/*
+	 * Funcion auxiliar: Recibe un string y lo devuelve con la priemera letra en mayuscula
+	 */
+	public static String primeraMayus(String s){
+		return s.substring(0, 1).toUpperCase() + s.substring(1);
 	}
 
 	/*
